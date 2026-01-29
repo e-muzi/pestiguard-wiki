@@ -1,11 +1,11 @@
 import React from 'react';
-import Layout from '@theme/Layout';
+import Layout from '@docusaurus/theme-classic/lib/theme/Layout';
 import { 
   Box, 
   Container, 
   Typography, 
   Paper, 
-  Divider,
+  Divider,  
   Stack,
   useTheme
 } from '@mui/material';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '@theme/Layout';
+import Layout from '@docusaurus/theme-classic/lib/theme/Layout';
 import { 
   Box, 
   Container, 
@@ -10,7 +10,7 @@ import {
   StepLabel, 
   StepContent, 
   Alert, 
-  AlertTitle,
+  AlertTitle, 
   Divider,
   useTheme
 } from '@mui/material';

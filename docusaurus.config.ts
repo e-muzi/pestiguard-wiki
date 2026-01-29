@@ -27,6 +27,10 @@ const config: Config = {
     ],
   ],
   themeConfig: {
+    colorMode: {
+      defaultMode: 'light',
+      respectPrefersColorScheme: true,
+    },
     navbar: {
       title: 'PestiGuard',
       items: [
