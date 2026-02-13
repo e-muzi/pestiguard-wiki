@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '@docusaurus/theme-classic/lib/theme/Layout';
+import { motion } from 'motion/react';
 import { 
   Box, 
   Container, 
@@ -30,15 +31,15 @@ export default function HardwarePage(): JSX.Element {
 
   return (
     <Layout title="Hardware: The SmartBox">
-      {/* Hero Header */}
-      <Box sx={{ bgcolor: 'grey.900', color: 'white', py: 8 }}>
+      {/* Hero Header – same pattern as Development page */}
+      <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, borderBottom: `1px solid ${theme.palette.divider}` }}>
         <Container maxWidth="md">
-          <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h2" align="center" color="text.primary" gutterBottom sx={{ fontWeight: 800 }}>
             SmartBox: The Optical Environment
           </Typography>
-          <Typography variant="h6" sx={{ opacity: 0.8 }}>
+          <Typography variant="h5" align="center" color="text.secondary" paragraph>
             A portable, 3D-printed enclosure designed to provide a dark, controlled 
-            environment for precise fluorescence quantification[cite: 138].
+            environment for precise fluorescence quantification.
           </Typography>
         </Container>
       </Box>
@@ -54,33 +55,87 @@ export default function HardwarePage(): JSX.Element {
             <Typography variant="body1" paragraph>
               The SmartBox is a compact, fully 3D-printed enclosure consisting of three 
               major components: a black box with an orange filter, a blue light source, 
-              and a dedicated cover for placing samples[cite: 139].
+              and a dedicated cover for placing samples.
             </Typography>
             <Typography variant="body1" paragraph>
               To ensure accuracy, the box is constructed with <strong>black-walled 
-              interiors</strong> that minimize internal light reflection[cite: 29]. 
+              interiors</strong> that minimize internal light reflection. 
               The design eliminates extra openings to prevent external light leakage, 
-              ensuring the validity of every reading[cite: 30].
+              ensuring the validity of every reading.
             </Typography>
           </Box>
-          <Box>
-            <Box 
-              sx={{ 
-                height: 350, 
-                bgcolor: 'grey.200', 
-                borderRadius: 4, 
-                display: 'flex', 
-                flexDirection: 'column',
-                alignItems: 'center', 
-                justifyContent: 'center',
-                border: '2px dashed grey'
-              }}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{ width: '100%', maxWidth: 480 }}
             >
-              <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center', px: 4 }}>
-                [IMAGE SUGGESTION: 3D CAD rendering or photo of the assembled SmartBox 
-                showing the lid, internal tube holder, and outer casing]
-              </Typography>
-            </Box>
+              <Paper
+                elevation={0}
+                sx={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  borderRadius: 3,
+                  border: `1px solid ${theme.palette.divider}`,
+                  bgcolor: theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
+                  boxShadow: theme.palette.mode === 'dark'
+                    ? '0 12px 40px rgba(0,0,0,0.25)'
+                    : '0 12px 40px rgba(0,0,0,0.08)',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 3,
+                    background: `linear-gradient(90deg, ${bioBlue}, ${gfpGreen})`,
+                    opacity: 0.9,
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    position: 'relative',
+                    pt: '3px',
+                    px: 2,
+                    pb: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    minHeight: 320,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src="/assets/hardware.png"
+                    alt="3D CAD draft of the assembled SmartBox"
+                    sx={{
+                      maxHeight: 280,
+                      width: 'auto',
+                      objectFit: 'contain',
+                      filter: theme.palette.mode === 'dark'
+                        ? 'drop-shadow(0 8px 24px rgba(0,0,0,0.4))'
+                        : 'drop-shadow(0 8px 24px rgba(0,0,0,0.12))',
+                      transition: 'transform 0.35s ease',
+                      '&:hover': { transform: 'scale(1.02)' },
+                    }}
+                  />
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      mt: 1.5,
+                      color: 'text.secondary',
+                      fontWeight: 500,
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    3D CAD draft · SmartBox assembly
+                  </Typography>
+                </Box>
+              </Paper>
+            </motion.div>
           </Box>
         </Box>
 
@@ -100,7 +155,7 @@ export default function HardwarePage(): JSX.Element {
                 <Typography variant="h6" gutterBottom>Blue Light Source</Typography>
                 <Typography variant="body2" color="text.secondary">
                   A blue LED light strip provides even illumination across the 
-                  samples[cite: 29, 139]. This precise light source is essential 
+                  samples. This precise light source is essential 
                   for exciting the Green Fluorescent Protein (GFP) produced by 
                   the biosensor.
                 </Typography>
@@ -113,9 +168,9 @@ export default function HardwarePage(): JSX.Element {
                 <Typography variant="h6" gutterBottom>Orange Filter</Typography>
                 <Typography variant="body2" color="text.secondary">
                   The box includes an integrated orange filter that isolates 
-                  the emission signal[cite: 29, 139]. It blocks the blue 
+                  the emission signal. It blocks the blue 
                   excitation light, allowing the smartphone camera to capture 
-                  only the green light intensity emitted by the biosensor[cite: 136].
+                  only the green light intensity emitted by the biosensor.
                 </Typography>
               </Paper>
             </Box>
@@ -139,24 +194,44 @@ export default function HardwarePage(): JSX.Element {
 
         {/* 3. Portability and Workflow */}
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 6, alignItems: 'center' }}>
-          <Box>
-            <Box 
-              sx={{ 
-                height: 300, 
-                bgcolor: 'grey.200', 
-                borderRadius: 4, 
-                display: 'flex', 
-                flexDirection: 'column',
-                alignItems: 'center', 
-                justifyContent: 'center',
-                border: '2px dashed grey'
-              }}
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{ width: '100%', maxWidth: 420 }}
             >
-              <Typography variant="caption" color="text.secondary" sx={{ textAlign: 'center', px: 4 }}>
-                [IMAGE SUGGESTION: Illustration of the 'Folded' vs 'Unfolded' 
-                state of the SmartBox, highlighting its portability]
-              </Typography>
-            </Box>
+              <Box
+                sx={{
+                  overflow: 'hidden',
+                  borderRadius: 2,
+                  boxShadow: theme.palette.mode === 'dark'
+                    ? '0 20px 50px -12px rgba(0,0,0,0.4)'
+                    : '0 20px 50px -12px rgba(0,0,0,0.15)',
+                  '&:hover .hardware-advantage-img': {
+                    transform: 'scale(1.03)',
+                  },
+                }}
+              >
+                <Box
+                  className="hardware-advantage-img"
+                  component="img"
+                  src="/assets/hardware_flow.jpg"
+                  alt="SmartBox foldable, field-ready design for on-site testing"
+                  sx={{
+                    display: 'block',
+                    maxHeight: 300,
+                    width: '100%',
+                    objectFit: 'contain',
+                    filter: theme.palette.mode === 'dark'
+                      ? 'drop-shadow(0 10px 30px rgba(0,0,0,0.35))'
+                      : 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))',
+                    transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  }}
+                />
+              </Box>
+            </motion.div>
           </Box>
           <Box>
             <Box display="flex" alignItems="center" mb={2}>
@@ -165,15 +240,15 @@ export default function HardwarePage(): JSX.Element {
             </Box>
             <Typography variant="body1" paragraph>
               The SmartBox is designed for maximum portability with a <strong>foldable 
-              structure</strong>[cite: 29]. This allows users to easily transport the 
+              structure</strong>. This allows users to easily transport the 
               kit for on-site testing in grocery stores, farms, or community gardens.
             </Typography>
             <Typography variant="h6" gutterBottom>Hardware Workflow:</Typography>
             <List>
               {[
-                "Insert the induced biosensor tube into the appropriate adaptor[cite: 31, 139].",
-                "Close the lid to seal out ambient light[cite: 30, 138].",
-                "Activate the blue LED and capture the result through the orange filter using the BioAP software[cite: 136, 139]."
+                "Insert the induced biosensor tube into the appropriate adaptor.",
+                "Close the lid to seal out ambient light.",
+                "Activate the blue LED and capture the result through the orange filter using the BioAP software."
               ].map((step, index) => (
                 <ListItem key={index} sx={{ px: 0 }}>
                   <ListItemIcon sx={{ minWidth: 36 }}>

@@ -11,7 +11,7 @@ import {
   StepContent, 
   Alert, 
   AlertTitle, 
-  Divider,
+  Stack,
   useTheme
 } from '@mui/material';
 import { 
@@ -52,16 +52,16 @@ export default function UsagePage(): JSX.Element {
 
   return (
     <Layout title="Usage Guide">
-      {/* Hero Header */}
-      <Box sx={{ bgcolor: 'info.dark', color: 'white', py: 8 }}>
+      {/* Hero Header – same pattern as Development page */}
+      <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, borderBottom: `1px solid ${theme.palette.divider}` }}>
         <Container maxWidth="md">
-          <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
-            <MenuBook sx={{ fontSize: 40, mr: 2 }} />
-            <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold' }}>
-              User Guide
-            </Typography>
+          <Box display="flex" justifyContent="center" mb={2}>
+            <MenuBook sx={{ fontSize: 48, color: 'primary.main' }} />
           </Box>
-          <Typography variant="h6" align="center" sx={{ opacity: 0.9 }}>
+          <Typography variant="h2" align="center" color="text.primary" gutterBottom sx={{ fontWeight: 800 }}>
+            User Guide
+          </Typography>
+          <Typography variant="h5" align="center" color="text.secondary" paragraph>
             Follow these simple steps to detect pesticide residues in your 
             food and environment using the PestiGuard system.
           </Typography>
@@ -114,7 +114,7 @@ export default function UsagePage(): JSX.Element {
 
           {/* Right: Safety and Interpretation */}
           <Box>
-            <Stack spacing={4}>
+            <Stack direction="column" spacing={4}>
               {/* Safety Alert */}
               <Alert severity="warning" variant="outlined" icon={<WarningAmber fontSize="inherit" />}>
                 <AlertTitle sx={{ fontWeight: 'bold' }}>Safety First</AlertTitle>
@@ -173,14 +173,5 @@ export default function UsagePage(): JSX.Element {
         </Box>
       </Container>
     </Layout>
-  );
-}
-
-// Simple Stack implementation helper
-function Stack({ children, spacing }: { children: React.ReactNode, spacing: number }) {
-  return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: spacing }}>
-      {children}
-    </Box>
   );
 }

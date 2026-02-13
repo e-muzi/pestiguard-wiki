@@ -6,8 +6,10 @@ import {
   Typography, 
   Paper, 
   Chip, 
-  Stack,
-  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   useTheme
 } from '@mui/material';
 import { 
@@ -15,7 +17,10 @@ import {
   Storage, 
   Psychology, 
   Assessment,
-  Code
+  Code,
+  Web,
+  Api,
+  CheckCircle
 } from '@mui/icons-material';
 
 export default function SoftwarePage(): JSX.Element {
@@ -27,101 +32,138 @@ export default function SoftwarePage(): JSX.Element {
 
   return (
     <Layout title="Software: BioAP Platform">
-      {/* Hero Section */}
-      <Box sx={{ 
-        bgcolor: 'background.paper', 
-        pt: 10, 
-        pb: 8, 
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        background: `radial-gradient(circle at 90% 10%, rgba(0, 176, 255, 0.1) 0%, rgba(255,255,255,1) 100%)`
-      }}>
+      {/* Hero Header */}
+      <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, borderBottom: `1px solid ${theme.palette.divider}` }}>
         <Container maxWidth="md">
-          <Box textAlign="center">
-            <Smartphone sx={{ fontSize: 60, color: bioBlue, mb: 2 }} />
-            <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 800 }}>
-              BioAP Platform
-            </Typography>
-            <Typography variant="h5" color="text.secondary">
-              Our custom-built analysis software that translates biological 
-              fluorescence into actionable safety data.
-            </Typography>
-            <Stack direction="row" spacing={1} justifyContent="center" mt={3}>
-              <Chip label="React / TypeScript" variant="outlined" icon={<Code />} />
-              <Chip label="Flask Backend" variant="outlined" icon={<Storage />} />
-              <Chip label="Computer Vision" variant="outlined" icon={<Psychology />} />
-            </Stack>
+          <Box display="flex" justifyContent="center" mb={2}>
+            <Smartphone sx={{ fontSize: 48, color: 'primary.main' }} />
+          </Box>
+          <Typography variant="h2" align="center" color="text.primary" gutterBottom sx={{ fontWeight: 800 }}>
+            BioAP Platform
+          </Typography>
+          <Typography variant="h5" align="center" color="text.secondary" paragraph>
+            Our custom-built analysis software translates biological fluorescence into actionable safety data.
+            It empowers users to perform on-site pesticide analysis by processing images of biosensor samples
+            to determine precise pesticide concentrations.
+          </Typography>
+          <Box display="flex" justifyContent="center" gap={2} mt={3} flexWrap="wrap">
+            <Chip label="Flask / Python" variant="outlined" icon={<Code />} />
+            <Chip label="SQLite / SQLAlchemy" variant="outlined" icon={<Storage />} />
+            <Chip label="Computer Vision" variant="outlined" icon={<Psychology />} />
           </Box>
         </Container>
       </Box>
 
-      {/* System Architecture */}
+      {/* System Architecture: MVC */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 6, alignItems: 'center' }}>
-          <Box>
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }} gutterBottom>
-              Full-Stack Architecture
-            </Typography>
-            <Typography variant="body1" paragraph>
-              The BioAP platform is built using a modern decoupled architecture to ensure 
-              speed and scalability. The <strong>React/TypeScript</strong> frontend 
-              provides a seamless user experience, while the <strong>Flask (Python)</strong> 
-              backend handles the heavy lifting of image processing and data calculation.
-            </Typography>
-            <Box sx={{ p: 3, bgcolor: 'grey.50', borderRadius: 4, border: '1px solid #e0e0e0' }}>
-              <Typography variant="subtitle1" color="primary" sx={{ fontWeight: 'bold' }} gutterBottom>
-                Data Flow:
-              </Typography>
-              <Typography variant="body2">
-                1. User captures fluorescence via Smartphone camera.<br />
-                2. Image is securely uploaded to the Flask API.<br />
-                3. The CV Engine calculates RGB Optical Density.<br />
-                4. Concentration results are returned in &lt; 2 seconds.
-              </Typography>
+        <Box textAlign="center" mb={6}>
+          <Typography variant="h4" sx={{ fontWeight: 'bold' }} gutterBottom>
+            System Architecture: Model-View-Controller (MVC)
+          </Typography>
+          <Typography variant="body1" color="text.secondary" maxWidth="720px" mx="auto">
+            The BioAP platform utilizes a decoupled MVC architecture to ensure organized logic,
+            data integrity, and high performance.
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: 4 }}>
+          {/* Model */}
+          <Paper variant="outlined" sx={{ p: 4, borderRadius: 4, height: '100%' }}>
+            <Box display="flex" alignItems="center" mb={2}>
+              <Storage sx={{ color: bioBlue, mr: 1, fontSize: 32 }} />
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Model (Database)</Typography>
             </Box>
-          </Box>
-          <Box>
-            <Box 
-              sx={{ 
-                height: 350, 
-                bgcolor: 'grey.900', 
-                borderRadius: 4, 
-                display: 'flex', 
-                flexDirection: 'column',
-                alignItems: 'center', 
-                justifyContent: 'center',
-                boxShadow: 4
-              }}
-            >
-              <Typography variant="caption" color="grey.500" align="center" sx={{ px: 4 }}>
-                [IMAGE SUGGESTION: A technical architecture diagram showing the 
-                Mobile App interacting with the Cloud Server and Database]
-              </Typography>
+            <Typography variant="body2" color="text.secondary" paragraph>
+              A lightweight SQLite database managed via SQLAlchemy handles local data persistence. It stores:
+            </Typography>
+            <List dense disablePadding>
+              <ListItem disablePadding sx={{ alignItems: 'flex-start', mb: 1 }}>
+                <ListItemIcon sx={{ minWidth: 28, mt: 0.25 }}>
+                  <CheckCircle sx={{ fontSize: 18, color: gfpGreen }} />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Calibration Data"
+                  secondary="Profiles defining detection parameters, including standard curves for specific pesticides."
+                  primaryTypographyProps={{ fontWeight: 600, variant: 'body2' }}
+                  secondaryTypographyProps={{ variant: 'body2' }}
+                />
+              </ListItem>
+              <ListItem disablePadding sx={{ alignItems: 'flex-start' }}>
+                <ListItemIcon sx={{ minWidth: 28, mt: 0.25 }}>
+                  <CheckCircle sx={{ fontSize: 18, color: gfpGreen }} />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Operational Data"
+                  secondary="User activity, metadata, image paths, and calculated concentrations."
+                  primaryTypographyProps={{ fontWeight: 600, variant: 'body2' }}
+                  secondaryTypographyProps={{ variant: 'body2' }}
+                />
+              </ListItem>
+            </List>
+          </Paper>
+
+          {/* View */}
+          <Paper variant="outlined" sx={{ p: 4, borderRadius: 4, height: '100%' }}>
+            <Box display="flex" alignItems="center" mb={2}>
+              <Web sx={{ color: bioBlue, mr: 1, fontSize: 32 }} />
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}>View (Frontend)</Typography>
             </Box>
-          </Box>
+            <Typography variant="body2" color="text.secondary">
+              The user interface is built with Jinja2 templates and styled with Bootstrap 5 and Material-UI
+              for a responsive, multi-platform experience.
+            </Typography>
+          </Paper>
+
+          {/* Controller */}
+          <Paper variant="outlined" sx={{ p: 4, borderRadius: 4, height: '100%' }}>
+            <Box display="flex" alignItems="center" mb={2}>
+              <Api sx={{ color: bioBlue, mr: 1, fontSize: 32 }} />
+              <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Controller (Backend)</Typography>
+            </Box>
+            <Typography variant="body2" color="text.secondary">
+              A Python Flask framework manages server-side logic and REST-style routing to handle user requests
+              and complex scientific calculations.
+            </Typography>
+          </Paper>
         </Box>
       </Container>
 
-      {/* CV Algorithm Section */}
+      {/* CV Engine & Algorithm Section */}
       <Box sx={{ bgcolor: 'grey.50', py: 8 }}>
         <Container maxWidth="lg">
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 6, alignItems: 'center' }}>
             <Box>
               <Box display="flex" alignItems="center" mb={2}>
                 <Psychology sx={{ color: gfpGreen, mr: 1, fontSize: 32 }} />
-                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>The CV Engine</Typography>
+                <Typography variant="h4" sx={{ fontWeight: 'bold' }}>The CV Engine & Algorithm</Typography>
               </Box>
               <Typography variant="body1" paragraph>
-                At the heart of BioAP is our Computer Vision algorithm. It analyzes 
-                the <strong>RGB Optical Density</strong> of the captured image, 
-                specifically targeting the green spectrum emitted by the EGFP reporter.
+                The &quot;heart&quot; of BioAP is a robust Computer Vision (CV) algorithm that automates image analysis.
               </Typography>
               <Typography variant="body1" paragraph>
-                By correlating the pixel intensity with our pre-loaded <strong>Standard 
-                Curves</strong>, the software can accurately estimate the concentration 
-                of Glyphosate or Acephate in the sample.
+                <strong>RGB Optical Density:</strong> The software calculates the RGB intensity within specific
+                Regions of Interest (ROI) where the E.coli samples are located.
               </Typography>
-              <Chip label="High Accuracy" color="success" size="small" sx={{ mr: 1 }} />
-              <Chip label="Low Latency" color="success" size="small" />
+              <Typography variant="body1" paragraph>
+                <strong>Scientific Libraries:</strong> It leverages powerful Python libraries like NumPy and Pillow
+                for efficient image processing.
+              </Typography>
+              <Typography variant="body1" paragraph>
+                <strong>Quantification:</strong> By comparing captured intensity to pre-loaded standard curves,
+                the system converts raw RGB data into accurate concentrations for pesticides like Glyphosate and Acephate.
+              </Typography>
+              <Box sx={{ p: 2, bgcolor: 'background.paper', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+                <Typography variant="subtitle2" color="primary" sx={{ fontWeight: 'bold' }} gutterBottom>
+                  Workflow
+                </Typography>
+                <Typography variant="body2">
+                  (Calibration) → Capture → Adjust → Analyze → Result
+                </Typography>
+              </Box>
+              <Box mt={2}>
+                <Chip label="High Accuracy" color="success" size="small" sx={{ mr: 1 }} />
+                <Chip label="Low Latency" color="success" size="small" />
+              </Box>
             </Box>
             <Box>
               <Box 
@@ -137,8 +179,8 @@ export default function SoftwarePage(): JSX.Element {
                 }}
               >
                 <Typography variant="caption" color="text.secondary" align="center">
-                  [IMAGE SUGGESTION: A split-screen visual showing an 'Original Image' 
-                  of a glowing tube vs. the 'Processed Mask' used by the algorithm]
+                  [IMAGE SUGGESTION: A split-screen visual showing an &apos;Original Image&apos; 
+                  of a glowing tube vs. the &apos;Processed Mask&apos; used by the algorithm]
                 </Typography>
               </Box>
             </Box>
@@ -150,17 +192,17 @@ export default function SoftwarePage(): JSX.Element {
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Box textAlign="center" mb={6}>
           <Assessment sx={{ fontSize: 40, color: bioBlue, mb: 1 }} />
-          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>User Acceptance Testing (UAT)</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>User Acceptance Testing (UAT) Results</Typography>
           <Typography variant="body1" color="text.secondary">
-            Validating the software with real users in the community.
+            Testing with community participants validated the software&apos;s performance across key metrics.
           </Typography>
         </Box>
 
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: 4 }}>
           {[
-            { label: "Ease of Use", value: "94%", desc: "Users found the navigation intuitive." },
-            { label: "Speed", value: "98%", desc: "Instant results provided within seconds." },
-            { label: "Clarity", value: "91%", desc: "Information/Safety warnings were easy to understand." }
+            { label: "Intuitive Workflow", value: "94%", desc: "Users found the navigation and the [Capture → (Align) → Analyze → Result] process easy to follow." },
+            { label: "System Reliability", value: "98%", desc: "The Python-based Flask backend provided stable and robust scientific computation." },
+            { label: "Overall Satisfaction", value: "91%", desc: "Participants highly rated the application's clarity and the Material-UI visual design." }
           ].map((stat, index) => (
             <Box key={index}>
               <Paper variant="outlined" sx={{ p: 4, textAlign: 'center', borderRadius: 4 }}>
@@ -178,8 +220,7 @@ export default function SoftwarePage(): JSX.Element {
         
         <Box mt={6} textAlign="center">
           <Typography variant="body1" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-            "The PestiGuard app is as simple as taking a photo, yet provides 
-            lab-grade information I can actually use." — UAT Participant
+            &quot;The PestiGuard app is as simple as taking a photo, yet provides lab-grade information I can actually use.&quot; — UAT Participant
           </Typography>
         </Box>
       </Container>

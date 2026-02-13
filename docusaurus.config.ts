@@ -39,8 +39,7 @@ const config: Config = {
         {to: '/hardware', label: 'Hardware', position: 'left'},
         {to: '/software', label: 'Software', position: 'left'},
         {to: '/usage', label: 'Usage', position: 'left'},
-        {to: '/impact', label: 'Impact', position: 'left'},
-        {to: '/future-development', label: 'Future Dev', position: 'left'},
+        {to: '/contact', label: 'Contact', position: 'left'},
       ],
     },
     footer: {

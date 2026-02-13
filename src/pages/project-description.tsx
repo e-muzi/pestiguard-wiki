@@ -4,13 +4,13 @@ import {
   Box, 
   Container, 
   Typography, 
-  Grid, 
   Paper, 
   Divider,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Stack,
   useTheme
 } from '@mui/material';
 import { 
@@ -30,13 +30,13 @@ export default function ProjectDescription(): JSX.Element {
 
   return (
     <Layout title="Project Description">
-      {/* Header Section */}
-      <Box sx={{ bgcolor: 'grey.900', color: 'white', py: 8 }}>
+      {/* Hero Header – same pattern as Development page */}
+      <Box sx={{ bgcolor: 'background.paper', pt: 8, pb: 6, borderBottom: `1px solid ${theme.palette.divider}` }}>
         <Container maxWidth="md">
-          <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h2" align="center" color="text.primary" gutterBottom sx={{ fontWeight: 800 }}>
             Project Description
           </Typography>
-          <Typography variant="h6" sx={{ opacity: 0.8 }}>
+          <Typography variant="h5" align="center" color="text.secondary" paragraph>
             Bridging the gap between synthetic biology and consumer safety through 
             the development of a portable, cell-free pesticide biosensor.
           </Typography>
@@ -177,20 +177,5 @@ export default function ProjectDescription(): JSX.Element {
         </Box>
       </Container>
     </Layout>
-  );
-}
-
-// Utility Stack component if not imported from MUI
-function Stack({ children, spacing, direction }: any) {
-  return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: direction || 'column', 
-        gap: spacing || 1 
-      }}
-    >
-      {children}
-    </Box>
   );
 }

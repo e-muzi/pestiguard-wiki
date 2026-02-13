@@ -1,20 +1,38 @@
+/* PestiGuard color palette - Cream & Sage */
 :root {
-	--ifm-color-primary: #2ecc71;
-	--ifm-color-primary-dark: #26b864;
-	--ifm-color-primary-darker: #22ac5d;
-	--ifm-color-primary-darkest: #1b874a;
-	--ifm-color-primary-light: #45d17f;
-	--ifm-color-primary-lighter: #5cd58d;
-	--ifm-color-primary-lightest: #8fe3ae;
+	--ifm-navbar-height: 72px;
+	--pestiguard-cream: #F1F3E0;
+	--pestiguard-light-sage: #D2DCB6;
+	--pestiguard-muted-green: #A1BC98;
+	--pestiguard-dark-sage: #778873;
+	--ifm-color-primary: #A1BC98;
+	--ifm-color-primary-dark: #778873;
+	--ifm-color-primary-darker: #5a6b57;
+	--ifm-color-primary-darkest: #3d4a3b;
+	--ifm-color-primary-light: #b8c9b0;
+	--ifm-color-primary-lighter: #D2DCB6;
+	--ifm-color-primary-lightest: #e4ebdf;
+	--ifm-background-surface-color: #F1F3E0;
 }
 
 [data-theme='dark'] {
-	--ifm-color-primary: #45d17f;
+	--ifm-color-primary: #A1BC98;
+	--pestiguard-cream: #1a1f1a;
+	--pestiguard-light-sage: #5a6b57;
+	--pestiguard-muted-green: #7a9a75;
+	--pestiguard-dark-sage: #D2DCB6;
+	--ifm-background-surface-color: #1a1f1a;
+}
+
+/* Global background */
+html,
+body {
+	background-color: var(--pestiguard-cream);
 }
 
 /* Hero tweaks */
 .hero--primary {
-	background: linear-gradient(135deg, #2ecc71 0%, #26b864 100%);
+	background: linear-gradient(135deg, #A1BC98 0%, #778873 100%);
 }
 
 /* Feature grid spacing */
@@ -60,9 +78,9 @@
 	border-radius: 999px;
 	background: linear-gradient(
 		to right,
-		#2ecc71 0%,
-		#239b56 60%,
-		#000000 100%
+		#D2DCB6 0%,
+		#A1BC98 60%,
+		#778873 100%
 	);
 	outline: none;
 }
@@ -71,8 +89,8 @@
 	width: 18px;
 	height: 18px;
 	border-radius: 50%;
-	background: #ffffff;
-	border: 2px solid #2ecc71;
+	background: #F1F3E0;
+	border: 2px solid #778873;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 	cursor: pointer;
 }
@@ -98,8 +116,8 @@
 	border: 1px solid var(--ifm-toc-border-color);
 }
 .signal-visualizer__status.safe {
-	color: #2ecc71;
-	background: color-mix(in srgb, #2ecc71 10%, transparent);
+	color: #778873;
+	background: color-mix(in srgb, #A1BC98 15%, transparent);
 }
 .signal-visualizer__status.toxic {
 	color: #0f0f0f;
