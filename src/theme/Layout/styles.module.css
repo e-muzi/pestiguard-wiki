@@ -29,6 +29,13 @@ body {
   flex: 1;
   min-width: 0;
   position: relative;
+  overflow-x: hidden;
+}
+@media (max-width: 996px) {
+  .mainColumn {
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+  }
 }
 
 .menuButton {
@@ -58,8 +65,9 @@ body {
 }
 
 @media (max-width: 996px) {
+  /* Single nav on mobile: navbar hamburger opens theme mobile sidebar; hide duplicate wiki sidebar button */
   .menuButton {
-    display: flex;
+    display: none;
   }
   .sidebarColumn {
     width: 0;

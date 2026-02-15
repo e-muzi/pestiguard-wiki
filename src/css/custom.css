@@ -31,11 +31,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..800;1,9..144,600..800&family=Nunito:wght@400;500;600;700&display=swap');
 
 /* Global background and grain texture */
+html {
+  overflow-x: hidden;
+}
 html,
 body {
   background-color: var(--pg-background);
   font-family: 'Nunito', system-ui, sans-serif;
   color: var(--pg-foreground);
+}
+body {
+  overflow-x: hidden;
 }
 
 /* Paper-like grain overlay (fixed, full viewport, multiply blend, low opacity) */
@@ -162,4 +168,45 @@ h1, h2, h3, h4, h5, h6 {
 .signal-visualizer__status.toxic {
   color: var(--pg-foreground);
   background: rgba(44, 44, 36, 0.08);
+}
+
+/* ==========================================================================
+   Mobile: navbar sidebar above custom pill + touch-friendly nav
+   ========================================================================== */
+/* Ensure theme mobile sidebar and backdrop sit above custom navbar (z 1100) */
+.navbar-sidebar {
+  z-index: 1200 !important;
+}
+.navbar-sidebar__backdrop {
+  z-index: 1195 !important;
+}
+/* Touch-friendly nav links in mobile sidebar (min 44px tap target) */
+.navbar-sidebar .menu__list .menu__link {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: rgba(93, 112, 82, 0.15);
+}
+.navbar-sidebar .menu__list {
+  padding: 0.5rem 0;
+}
+/* Touch-friendly close and header in mobile sidebar */
+.navbar-sidebar__close,
+.navbar-sidebar__brand {
+  min-height: 44px;
+  -webkit-tap-highlight-color: rgba(93, 112, 82, 0.15);
+}
+
+/* Mobile viewport and overflow */
+@supports (padding: max(0px)) {
+  .mainWrapper {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+@media (max-width: 996px) {
+  .mainWrapper {
+    padding-top: 88px;
+  }
 }

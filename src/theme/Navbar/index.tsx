@@ -116,13 +116,18 @@ export default function Navbar(): JSX.Element {
                 aria-expanded={mobileSidebar.shown}
                 sx={{
                   display: { xs: 'inline-flex', md: 'none' },
-                  minWidth: 44,
-                  minHeight: 44,
+                  minWidth: 48,
+                  minHeight: 48,
                   color: colors.primary,
                   borderRadius: 9999,
+                  touchAction: 'manipulation',
+                  WebkitTapHighlightColor: 'transparent',
                   '&:hover': {
                     backgroundColor: `${colors.primary}18`,
                     color: colors.primary,
+                  },
+                  '&:active': {
+                    backgroundColor: `${colors.primary}22`,
                   },
                 }}
               >
