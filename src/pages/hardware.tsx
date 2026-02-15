@@ -141,7 +141,7 @@ export default function HardwarePage(): JSX.Element {
                   >
                     <Box
                       component="img"
-                      src="/assets/hardware.png"
+                      src="/assets/hardware.PNG"
                       alt="3D CAD draft of the assembled SmartBox"
                       sx={{
                         maxHeight: 280,
@@ -298,7 +298,7 @@ export default function HardwarePage(): JSX.Element {
                   <Box
                     className="hardware-advantage-img"
                     component="img"
-                    src="/assets/hardware_flow.jpg"
+                    src="/assets/hardware_flow.JPG"
                     alt="SmartBox foldable, field-ready design for on-site testing"
                     sx={{
                       display: 'block',

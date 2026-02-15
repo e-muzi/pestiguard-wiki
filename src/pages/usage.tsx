@@ -54,7 +54,7 @@ const steps = [
     label: 'SmartBox Setup',
     icon: <BoxIcon size={22} strokeWidth={2} />,
     description: `Place the reaction tube into the SmartBox adaptor. Ensure the lid is securely closed to block all ambient light. Switch on the internal blue LED excitation light.`,
-    image: '/assets/smartbox.jpg',
+    image: '/assets/smartbox.JPG',
     imageAlt: 'SmartBox setup: reaction tube in adaptor with lid closed',
   },
   {
