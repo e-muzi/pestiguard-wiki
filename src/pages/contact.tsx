@@ -173,7 +173,7 @@ export default function Contact(): JSX.Element {
       <Box sx={{ minHeight: '100%', bgcolor: colors.background, pb: { xs: 4, md: 8 } }}>
         <PageHero
           title="Contact"
-          subtitle="hello@pestiguard.com"
+          subtitle="s2021060@cpu.edu.hk"
           icon={
             <Box sx={heroIconSx}>
               <Mail size={26} strokeWidth={2} />

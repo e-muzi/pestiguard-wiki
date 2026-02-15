@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@docusaurus/theme-classic/lib/theme/Layout';
 import { motion } from 'motion/react';
 import {
@@ -10,6 +10,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  TextField,
+  Button,
 } from '@mui/material';
 import {
   Box as BoxIcon,
@@ -18,9 +20,13 @@ import {
   Settings,
   Wrench,
   WifiOff,
+  ShoppingCart,
 } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import { colors, shadows, typography } from '../theme/design-tokens';
+
+const HARDWARE_MODEL_NAME = 'SmartBox';
+const ORDER_INQUIRY_EMAIL = 's2021060@cpu.edu.hk';
 
 const heroIconSx = {
   width: 48,
@@ -45,7 +51,20 @@ const iconWrapSx = {
   flexShrink: 0,
 };
 
+function buildOrderMailtoLink(quantity: number): string {
+  const subject = encodeURIComponent(`Purchase Inquiry: ${HARDWARE_MODEL_NAME}`);
+  const body = encodeURIComponent(
+    `I am interested in purchasing the ${HARDWARE_MODEL_NAME}.\n\n` +
+      `Quantity requested: ${quantity}\n\n` +
+      `Please provide a shipping quote and any additional details to complete the order.\n\n` +
+      `Thank you.`
+  );
+  return `mailto:${ORDER_INQUIRY_EMAIL}?subject=${subject}&body=${body}`;
+}
+
 export default function HardwarePage(): JSX.Element {
+  const [quantity, setQuantity] = useState(1);
+
   return (
     <Layout title="Hardware">
       <PageHero
@@ -356,6 +375,90 @@ export default function HardwarePage(): JSX.Element {
                 ))}
               </List>
             </Box>
+          </Box>
+
+          {/* Order / Inquiry Section */}
+          <Box sx={{ py: 8 }}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: { xs: 3, sm: 4 },
+                borderRadius: '2rem',
+                border: `1px solid ${colors.border}80`,
+                bgcolor: colors.card,
+                boxShadow: shadows.soft,
+                maxWidth: 480,
+                mx: 'auto',
+                transition: 'box-shadow 0.3s ease',
+                '&:hover': { boxShadow: shadows.softHover },
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                <Box sx={{ ...iconWrapSx, width: 48, height: 48 }}>
+                  <ShoppingCart size={24} strokeWidth={2} />
+                </Box>
+                <Typography variant="h5" sx={{ fontFamily: typography.fontFamilyHeading, fontWeight: 700, color: colors.foreground }}>
+                  Order now
+                </Typography>
+              </Box>
+              <Typography variant="body2" sx={{ color: colors.mutedForeground, mb: 3, lineHeight: 1.6 }}>
+                Interested in the SmartBox? Specify the quantity below and we’ll get back to you with a shipping quote.
+              </Typography>
+              <TextField
+                label="Quantity"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value, 10) || 1))}
+                inputProps={{ min: 1, max: 999, step: 1 }}
+                fullWidth
+                sx={{
+                  mb: 3,
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 9999,
+                    fontFamily: typography.fontFamilyBody,
+                    '& fieldset': { borderColor: colors.border },
+                    '&:hover fieldset': { borderColor: colors.primary },
+                    '&.Mui-focused fieldset': { borderWidth: 2, borderColor: colors.primary },
+                  },
+                  '& .MuiInputLabel-root': { fontFamily: typography.fontFamilyBody },
+                }}
+              />
+              <Button
+                component="a"
+                href={buildOrderMailtoLink(quantity)}
+                fullWidth
+                variant="contained"
+                disableElevation
+                sx={{
+                  py: 1.5,
+                  borderRadius: 9999,
+                  fontFamily: typography.fontFamilyBody,
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  textTransform: 'none',
+                  boxShadow: shadows.soft,
+                  '&:hover': {
+                    boxShadow: shadows.softHover,
+                    backgroundColor: colors.primary,
+                  },
+                }}
+              >
+                Contact Sales
+              </Button>
+              <Typography
+                variant="caption"
+                sx={{
+                  display: 'block',
+                  mt: 1.5,
+                  color: colors.mutedForeground,
+                  textAlign: 'center',
+                  fontFamily: typography.fontFamilyBody,
+                  lineHeight: 1.5,
+                }}
+              >
+                Clicking will open your default email client to finalize details.
+              </Typography>
+            </Paper>
           </Box>
         </Container>
       </Box>
