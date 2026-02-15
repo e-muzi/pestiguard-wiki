@@ -1,125 +1,165 @@
-/* PestiGuard color palette - Cream & Sage */
+/* ==========================================================================
+   PestiGuard – Organic / Natural design system
+   ========================================================================== */
+
+/* Design tokens (mirror design-tokens.ts for global/CSS-only use) */
 :root {
-	--ifm-navbar-height: 72px;
-	--pestiguard-cream: #F1F3E0;
-	--pestiguard-light-sage: #D2DCB6;
-	--pestiguard-muted-green: #A1BC98;
-	--pestiguard-dark-sage: #778873;
-	--ifm-color-primary: #A1BC98;
-	--ifm-color-primary-dark: #778873;
-	--ifm-color-primary-darker: #5a6b57;
-	--ifm-color-primary-darkest: #3d4a3b;
-	--ifm-color-primary-light: #b8c9b0;
-	--ifm-color-primary-lighter: #D2DCB6;
-	--ifm-color-primary-lightest: #e4ebdf;
-	--ifm-background-surface-color: #F1F3E0;
+  --ifm-navbar-height: 72px;
+  /* Organic palette */
+  --pg-background: #FDFCF8;
+  --pg-foreground: #2C2C24;
+  --pg-primary: #5D7052;
+  --pg-primary-foreground: #F3F4F1;
+  --pg-secondary: #C18C5D;
+  --pg-secondary-foreground: #FFFFFF;
+  --pg-accent: #E6DCCD;
+  --pg-accent-foreground: #4A4A40;
+  --pg-muted: #F0EBE5;
+  --pg-muted-foreground: #78786C;
+  --pg-border: #DED8CF;
+  --pg-destructive: #A85448;
+  --pg-card: #FEFEFA;
+  /* Shadows */
+  --pg-shadow-soft: 0 4px 20px -2px rgba(93, 112, 82, 0.15);
+  --pg-shadow-float: 0 10px 40px -10px rgba(193, 140, 93, 0.2);
+  /* Radii */
+  --pg-radius-card: 2rem;
+  --pg-radius-pill: 9999px;
 }
 
-[data-theme='dark'] {
-	--ifm-color-primary: #A1BC98;
-	--pestiguard-cream: #1a1f1a;
-	--pestiguard-light-sage: #5a6b57;
-	--pestiguard-muted-green: #7a9a75;
-	--pestiguard-dark-sage: #D2DCB6;
-	--ifm-background-surface-color: #1a1f1a;
-}
+/* Google Fonts – Fraunces (headings), Nunito (body) */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600..800;1,9..144,600..800&family=Nunito:wght@400;500;600;700&display=swap');
 
-/* Global background */
+/* Global background and grain texture */
 html,
 body {
-	background-color: var(--pestiguard-cream);
+  background-color: var(--pg-background);
+  font-family: 'Nunito', system-ui, sans-serif;
+  color: var(--pg-foreground);
 }
 
-/* Hero tweaks */
-.hero--primary {
-	background: linear-gradient(135deg, #A1BC98 0%, #778873 100%);
+/* Paper-like grain overlay (fixed, full viewport, multiply blend, low opacity) */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Feature grid spacing */
+/* Docusaurus overrides – align with Organic palette */
+:root {
+  --ifm-color-primary: #5D7052;
+  --ifm-color-primary-dark: #4d5f44;
+  --ifm-color-primary-darker: #3d4f36;
+  --ifm-color-primary-darkest: #2d3f28;
+  --ifm-color-primary-light: #7d9072;
+  --ifm-color-primary-lighter: #8da082;
+  --ifm-color-primary-lightest: #b8c9b0;
+  --ifm-background-surface-color: var(--pg-background);
+}
+
+/* Headings use Fraunces */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  color: var(--pg-foreground);
+}
+
+/* Hero / section spacing */
 .margin-bottom--lg {
-	margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-/* SignalVisualizer styles (hyphenated class names to match component) */
+/* ==========================================================================
+   SignalVisualizer (keep BEM, update to Organic tokens)
+   ========================================================================== */
 .signal-visualizer {
-	border: 1px solid var(--ifm-toc-border-color);
-	border-radius: 12px;
-	padding: 1rem;
-	background: var(--ifm-background-surface-color);
-	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--pg-border);
+  border-radius: 1rem;
+  padding: 1rem;
+  background: var(--pg-card);
+  box-shadow: var(--pg-shadow-soft);
 }
 
 .signal-visualizer__header {
-	margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .signal-visualizer__box {
-	height: 120px;
-	border-radius: 10px;
-	border: 1px solid var(--ifm-toc-border-color);
-	transition: background-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
-	box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.25);
+  height: 120px;
+  border-radius: 1rem;
+  border: 1px solid var(--pg-border);
+  transition: background-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.25);
 }
 
 .signal-visualizer__controls {
-	display: grid;
-	gap: 0.5rem;
-	margin-top: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .signal-visualizer__label {
-	font-weight: 600;
+  font-weight: 600;
 }
 
 .signal-visualizer__slider {
-	width: 100%;
-	appearance: none;
-	height: 6px;
-	border-radius: 999px;
-	background: linear-gradient(
-		to right,
-		#D2DCB6 0%,
-		#A1BC98 60%,
-		#778873 100%
-	);
-	outline: none;
+  width: 100%;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--ifm-color-primary-lighter) 0%,
+    var(--ifm-color-primary) 60%,
+    var(--ifm-color-primary-dark) 100%
+  );
+  outline: none;
 }
+
 .signal-visualizer__slider::-webkit-slider-thumb {
-	appearance: none;
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	background: #F1F3E0;
-	border: 2px solid #778873;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-	cursor: pointer;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pg-primary-foreground);
+  border: 2px solid var(--ifm-color-primary-dark);
+  box-shadow: 0 1px 3px rgba(93, 112, 82, 0.2);
+  cursor: pointer;
 }
+
 .signal-visualizer__slider::-moz-range-thumb {
-	width: 18px;
-	height: 18px;
-	border: none;
-	border-radius: 50%;
-	background: #ffffff;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-	cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: var(--pg-primary-foreground);
+  box-shadow: 0 1px 3px rgba(93, 112, 82, 0.2);
+  cursor: pointer;
 }
 
 .signal-visualizer__status {
-	display: inline-block;
-	margin-top: 0.75rem;
-	min-width: 110px;
-	text-align: center;
-	font-weight: 800;
-	letter-spacing: 0.06em;
-	padding: 0.5rem 0.75rem;
-	border-radius: 999px;
-	border: 1px solid var(--ifm-toc-border-color);
+  display: inline-block;
+  margin-top: 0.75rem;
+  min-width: 110px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--pg-border);
 }
+
 .signal-visualizer__status.safe {
-	color: #778873;
-	background: color-mix(in srgb, #A1BC98 15%, transparent);
+  color: var(--ifm-color-primary-dark);
+  background: rgba(93, 112, 82, 0.15);
 }
+
 .signal-visualizer__status.toxic {
-	color: #0f0f0f;
-	background: color-mix(in srgb, #000 6%, transparent);
+  color: var(--pg-foreground);
+  background: rgba(44, 44, 36, 0.08);
 }

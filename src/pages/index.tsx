@@ -1,22 +1,14 @@
 import React from 'react';
 import Layout from '@docusaurus/theme-classic/lib/theme/Layout';
-import { Box, Container, Typography, Paper } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import Link from '@docusaurus/Link';
+import { motion } from 'motion/react';
+import { Dna, Box as BoxIcon, Smartphone } from 'lucide-react';
+import { colors, shadows, cardRadii, organicRadii, typography } from '../theme/design-tokens';
 
 type LayoutProps = React.ComponentProps<typeof Layout> & {
   title?: string;
   description?: string;
-};
-import { motion } from 'motion/react';
-import Biotech from '@mui/icons-material/Biotech';
-import SettingsInputComponent from '@mui/icons-material/SettingsInputComponent';
-import Smartphone from '@mui/icons-material/Smartphone';
-
-const PALETTE = {
-  cream: '#F1F3E0',
-  lightSage: '#D2DCB6',
-  mutedGreen: '#A1BC98',
-  darkSage: '#778873',
 };
 
 const FEATURE_TRIO = [
@@ -24,13 +16,13 @@ const FEATURE_TRIO = [
     to: '/project-description',
     label: 'Biosensor Circuit',
     description: 'Synthetic genetic circuit and RNA aptamers for pesticide detection.',
-    Icon: Biotech,
+    Icon: Dna,
   },
   {
     to: '/hardware',
     label: 'Hardware',
     description: 'SmartBox: 3D-printed optical darkroom and smartphone capture.',
-    Icon: SettingsInputComponent,
+    Icon: BoxIcon,
   },
   {
     to: '/software',
@@ -40,18 +32,12 @@ const FEATURE_TRIO = [
   },
 ];
 
-/** Floating background orbs – exaggerated motion */
-function FloatingBackground() {
-  const orbs = [
-    { size: 120, x: '8%', y: '15%', delay: 0, duration: 8 },
-    { size: 80, x: '85%', y: '25%', delay: 1, duration: 10 },
-    { size: 160, x: '75%', y: '70%', delay: 0.5, duration: 12 },
-    { size: 60, x: '15%', y: '75%', delay: 2, duration: 7 },
-    { size: 100, x: '50%', y: '50%', delay: 0.8, duration: 9 },
-    { size: 90, x: '92%', y: '88%', delay: 1.5, duration: 11 },
-    { size: 70, x: '5%', y: '45%', delay: 0.3, duration: 8 },
+/** Ambient blob backgrounds with organic shapes and blur */
+function BlobBackgrounds() {
+  const blobs = [
+    { color: colors.primary, opacity: 0.12, size: 420, x: '5%', y: '10%', radius: organicRadii[0] },
+    { color: colors.secondary, opacity: 0.1, size: 360, x: '75%', y: '60%', radius: organicRadii[1] },
   ];
-
   return (
     <Box
       sx={{
@@ -62,29 +48,19 @@ function FloatingBackground() {
         zIndex: 0,
       }}
     >
-      {orbs.map((orb, i) => (
-        <motion.div
+      {blobs.map((blob, i) => (
+        <Box
           key={i}
-          style={{
+          sx={{
             position: 'absolute',
-            left: orb.x,
-            top: orb.y,
-            width: orb.size,
-            height: orb.size,
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${PALETTE.mutedGreen}99 0%, ${PALETTE.darkSage}88 40%, ${PALETTE.mutedGreen}55 70%, transparent 85%)`
-          }}
-          animate={{
-            y: [0, -45, 30, -20, 0],
-            x: [0, 25, -15, 20, 0],
-            scale: [1, 1.15, 0.95, 1.1, 1],
-            opacity: [0.65, 0.95, 0.55, 0.85, 0.65],
-          }}
-          transition={{
-            duration: orb.duration,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: orb.delay,
+            left: blob.x,
+            top: blob.y,
+            width: blob.size,
+            height: blob.size,
+            borderRadius: blob.radius,
+            backgroundColor: blob.color,
+            opacity: blob.opacity,
+            filter: 'blur(80px)',
           }}
         />
       ))}
@@ -117,16 +93,15 @@ export default function Home(): JSX.Element {
       <Box
         sx={{
           position: 'relative',
-          height: '100vh',
-          minHeight: 600,
-          maxHeight: '100dvh',
+          minHeight: { xs: 'auto', md: '100vh' },
           overflow: 'hidden',
-          bgcolor: PALETTE.cream,
+          bgcolor: colors.background,
           display: 'flex',
-          alignItems: 'stretch',
+          alignItems: 'center',
+          py: { xs: 4, sm: 5, md: 8 },
         }}
       >
-        <FloatingBackground />
+        <BlobBackgrounds />
 
         <Container
           maxWidth="xl"
@@ -135,32 +110,29 @@ export default function Home(): JSX.Element {
             zIndex: 1,
             display: 'flex',
             alignItems: 'center',
-            py: 2,
-            height: '100%',
+            py: { xs: 0, md: 2 },
+            width: '100%',
+            px: { xs: 2, sm: 3 },
           }}
         >
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: { xs: '1fr', lg: '1.85fr 0.8fr' },
-              gap: 5,
+              gridTemplateColumns: { xs: '1fr', lg: '1.1fr 0.9fr' },
+              gap: { xs: 4, sm: 5, lg: 5 },
               alignItems: 'center',
               width: '100%',
-              minHeight: 0,
+              maxWidth: { lg: 1280 },
+              mx: { lg: 'auto' },
             }}
           >
-            {/* Left: Slogan + Intro + 3 feature containers */}
+            {/* Left: Headline + intro + feature cards */}
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 3,
-                maxHeight: '100%',
-                overflow: 'visible',
-                minWidth: 0,
-                pr: { lg: 2 },
-                position: 'relative',
-                zIndex: 1,
+                gap: { xs: 2.5, sm: 3 },
+                pr: { lg: 1 },
               }}
             >
               <motion.div
@@ -172,24 +144,26 @@ export default function Home(): JSX.Element {
                   component="h1"
                   variant="h2"
                   sx={{
+                    fontFamily: typography.fontFamilyHeading,
                     fontWeight: 700,
-                    color: PALETTE.darkSage,
-                    mb: 1.5,
+                    color: colors.foreground,
+                    mb: 1,
                     lineHeight: 1.2,
-                    fontSize: { xs: '2rem', sm: '2.5rem', md: '2.75rem', lg: '3rem' },
+                    fontSize: { xs: '1.875rem', sm: '2.25rem', md: '2.75rem', lg: '3rem' },
                   }}
                 >
-                  PestiGuard. 
+                  PestiGuard.
                   <br />
                   Empowering you with food safety.
                 </Typography>
                 <Typography
                   variant="body1"
                   sx={{
-                    color: PALETTE.darkSage,
-                    maxWidth: 700,
-                    lineHeight: 1.7,
-                    fontSize: { xs: '1.05rem', sm: '1.15rem', md: '1.25rem' },
+                    fontFamily: typography.fontFamilyBody,
+                    color: colors.mutedForeground,
+                    maxWidth: { xs: '100%', md: 520 },
+                    lineHeight: 1.65,
+                    fontSize: { xs: '0.9375rem', sm: '1.05rem', md: '1.125rem' },
                   }}
                 >
                   An innovative, all-in-one biosensor empowering consumers to
@@ -198,7 +172,39 @@ export default function Home(): JSX.Element {
                 </Typography>
               </motion.div>
 
-              {/* Feature Trio – directly under intro */}
+              {/* Mobile-only: image between intro and cards */}
+              <Box
+                sx={{
+                  display: { xs: 'flex', lg: 'none' },
+                  justifyContent: 'center',
+                  my: 2,
+                }}
+              >
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  style={{
+                    transform: 'rotate(-2deg)',
+                    padding: 10,
+                    backgroundColor: 'rgba(255,255,255,0.92)',
+                    borderRadius: 16,
+                    boxShadow: shadows.soft,
+                  }}
+                >
+                  <img
+                    src="/assets/software_holding.PNG"
+                    alt="Hand holding PestiGuard device with BioAP Analysis app"
+                    style={{
+                      maxHeight: 200,
+                      width: 'auto',
+                      objectFit: 'contain',
+                      borderRadius: 10,
+                    }}
+                  />
+                </motion.div>
+              </Box>
+
               <Box
                 component={motion.div}
                 variants={containerVariants}
@@ -206,159 +212,141 @@ export default function Home(): JSX.Element {
                 animate="animate"
                 sx={{
                   display: 'grid',
-                  gridTemplateColumns: {
-                    xs: '1fr',
-                    sm: 'repeat(3, 1fr)',
-                  },
-                  gap: 3,
-                  mt: 2,
-                  alignItems: 'stretch',
+                  gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
+                  gap: { xs: 2, sm: 2.5 },
+                  mt: { xs: 0, sm: 1 },
                 }}
               >
-                {FEATURE_TRIO.map((item) => (
-                  <Box key={item.to} sx={{ display: 'flex', minHeight: 0 }}>
-                    <motion.div
-                      variants={{
-                        initial: { opacity: 0, y: 20 },
-                        animate: {
-                          opacity: 1,
-                          y: 0,
-                          transition: { duration: 0.35 },
-                        },
-                      }}
-                      style={{ width: '100%', display: 'flex' }}
+                {FEATURE_TRIO.map((item, index) => (
+                  <motion.div
+                    key={item.to}
+                    variants={{
+                      initial: { opacity: 0, y: 20 },
+                      animate: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.35 },
+                      },
+                    }}
+                  >
+                    <Link
+                      to={item.to}
+                      style={{ textDecoration: 'none', display: 'block', height: '100%' }}
                     >
-                      <Link to={item.to} style={{ textDecoration: 'none', flex: 1, display: 'flex', minWidth: 0 }}>
-                        <motion.div
-                          whileHover={{
-                            y: -6,
-                            scale: 1.04,
-                            transition: { duration: 0.2 },
+                      <Box
+                        component={motion.div}
+                        whileHover={{
+                          y: -4,
+                          transition: { duration: 0.3 },
+                        }}
+                        sx={{
+                          height: '100%',
+                          p: 3,
+                          borderRadius: '2rem',
+                          border: `1px solid ${colors.border}80`,
+                          bgcolor: colors.card,
+                          boxShadow: shadows.soft,
+                          cursor: 'pointer',
+                          transition: 'box-shadow 0.3s ease',
+                          '&:hover': {
+                            boxShadow: shadows.softHover,
+                          },
+                          ...cardRadii[index % cardRadii.length],
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: 56,
+                            height: 56,
+                            borderRadius: '1rem',
+                            bgcolor: `${colors.primary}18`,
+                            color: colors.primary,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            mb: 1.5,
+                            transition: 'background-color 0.3s ease, color 0.3s ease',
+                            '&:hover': {
+                              bgcolor: colors.primary,
+                              color: colors.primaryForeground,
+                            },
                           }}
-                          style={{ flex: 1, display: 'flex', minWidth: 0 }}
                         >
-                          <Paper
-                            elevation={0}
-                            sx={{
-                              p: 3,
-                              borderRadius: 2.5,
-                              border: `2px solid ${PALETTE.mutedGreen}`,
-                              bgcolor: PALETTE.cream,
-                              cursor: 'pointer',
-                              transition: 'box-shadow 0.2s ease',
-                              height: '100%',
-                              minHeight: 180,
-                              display: 'flex',
-                              flexDirection: 'column',
-                              '&:hover': {
-                                boxShadow: `0 12px 32px rgba(119, 136, 115, 0.18)`,
-                              },
-                            }}
-                          >
-                            <item.Icon
-                              sx={{
-                                fontSize: 44,
-                                color: PALETTE.mutedGreen,
-                                mb: 1,
-                              }}
-                            />
-                            <Typography
-                              variant="subtitle1"
-                              sx={{
-                                fontWeight: 700,
-                                color: PALETTE.darkSage,
-                                mb: 0.75,
-                                fontSize: { xs: '1.05rem', sm: '1.15rem' },
-                              }}
-                            >
-                              {item.label}
-                            </Typography>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                color: PALETTE.darkSage,
-                                lineHeight: 1.55,
-                                display: 'block',
-                                fontSize: { xs: '0.95rem', sm: '1rem' },
-                                flex: 1,
-                              }}
-                            >
-                              {item.description}
-                            </Typography>
-                            <Typography
-                              variant="caption"
-                              sx={{
-                                color: PALETTE.mutedGreen,
-                                fontWeight: 600,
-                                mt: 1.5,
-                                display: 'block',
-                              }}
-                            >
-                              &gt; Read more
-                            </Typography>
-                          </Paper>
-                        </motion.div>
-                      </Link>
-                    </motion.div>
-                  </Box>
+                          <item.Icon size={28} strokeWidth={2} />
+                        </Box>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{
+                            fontFamily: typography.fontFamilyHeading,
+                            fontWeight: 700,
+                            color: colors.foreground,
+                            mb: 0.75,
+                            fontSize: { xs: '1.05rem', sm: '1.1rem' },
+                          }}
+                        >
+                          {item.label}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: colors.mutedForeground,
+                            lineHeight: 1.55,
+                            fontSize: { xs: '0.9375rem', sm: '1rem' },
+                          }}
+                        >
+                          {item.description}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: colors.primary,
+                            fontWeight: 600,
+                            mt: 1.5,
+                            display: 'block',
+                          }}
+                        >
+                          Read more →
+                        </Typography>
+                      </Box>
+                    </Link>
+                  </motion.div>
                 ))}
               </Box>
             </Box>
 
-            {/* Right: Full-height image, no animation (desktop) */}
+            {/* Right: Product image (desktop only) — shifted right for balance */}
             <Box
               sx={{
                 display: { xs: 'none', lg: 'flex' },
                 alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: 0,
-                alignSelf: 'stretch',
+                justifyContent: 'flex-start',
+                pl: 20,
               }}
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
                 style={{
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  transform: 'rotate(-2deg)',
+                  padding: 12,
+                  backgroundColor: 'rgba(255,255,255,0.92)',
+                  borderRadius: '1.25rem',
+                  boxShadow: shadows.soft,
                 }}
               >
                 <img
                   src="/assets/software_holding.PNG"
                   alt="Hand holding PestiGuard device with BioAP Analysis app"
                   style={{
-                    maxHeight: '100%',
+                    maxHeight: 'min(65vh, 460px)',
                     width: 'auto',
                     objectFit: 'contain',
+                    display: 'block',
+                    borderRadius: 10,
                   }}
                 />
               </motion.div>
-            </Box>
-
-            {/* Mobile: image below content, no animation */}
-            <Box
-              sx={{
-                display: { xs: 'flex', lg: 'none' },
-                gridColumn: '1',
-                alignItems: 'center',
-                justifyContent: 'center',
-                mt: 2,
-                minHeight: 240,
-              }}
-            >
-              <img
-                src="/assets/software_holding.PNG"
-                alt="Hand holding PestiGuard device with BioAP Analysis app"
-                style={{
-                  maxHeight: 260,
-                  width: 'auto',
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 12px 28px rgba(0,0,0,0.12))',
-                }}
-              />
             </Box>
           </Box>
         </Container>

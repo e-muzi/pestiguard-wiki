@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
+import { colors } from '../theme/design-tokens';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home' },
@@ -56,7 +57,7 @@ export default function WikiSidebar({ isOpen, onClose, isMobile }: WikiSidebarPr
             style={{
               position: 'fixed',
               inset: 0,
-              backgroundColor: 'rgba(59, 73, 83, 0.5)',
+              backgroundColor: 'rgba(44, 44, 36, 0.25)',
               zIndex: 1040,
             }}
             aria-hidden="true"
@@ -70,21 +71,22 @@ export default function WikiSidebar({ isOpen, onClose, isMobile }: WikiSidebarPr
         variants={containerVariants}
         style={{
           position: isMobile ? 'fixed' : 'sticky',
-          top: isMobile ? 0 : 'var(--ifm-navbar-height, 60px)',
+          top: isMobile ? 0 : 'var(--ifm-navbar-height, 72px)',
           left: 0,
           width: 260,
-          height: isMobile ? '100vh' : 'calc(100vh - var(--ifm-navbar-height, 60px))',
+          height: isMobile ? '100vh' : 'calc(100vh - var(--ifm-navbar-height, 72px))',
           zIndex: 1050,
-          backgroundColor: 'var(--pestiguard-cream, #EBF4DD)',
-          borderRight: '1px solid rgba(90, 120, 99, 0.2)',
+          backgroundColor: colors.muted,
+          borderRight: `1px solid ${colors.border}80`,
           padding: '1.5rem 0.75rem',
           overflowY: 'auto',
-          boxShadow: isMobile ? '4px 0 24px rgba(59, 73, 83, 0.15)' : 'none',
+          boxShadow: isMobile ? `4px 0 24px rgba(93, 112, 82, 0.12)` : 'none',
+          borderRadius: isMobile ? '0 2rem 2rem 0' : 0,
         }}
       >
         <nav className="wiki-sidebar-nav" aria-label="Wiki navigation">
           <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-            {NAV_ITEMS.map((item, index) => {
+            {NAV_ITEMS.map((item) => {
               const href = item.to === '/' ? '/' : item.to;
               const isActive =
                 pathname === href || (href !== '/' && pathname.startsWith(href));
@@ -101,17 +103,21 @@ export default function WikiSidebar({ isOpen, onClose, isMobile }: WikiSidebarPr
                       display: 'block',
                       position: 'relative',
                       padding: '0.5rem 0.75rem',
-                      borderRadius: 8,
-                      color: 'var(--pestiguard-slate, #3B4953)',
+                      borderRadius: 12,
+                      color: isActive ? colors.primary : colors.foreground,
                       textDecoration: 'none',
-                      fontWeight: isActive ? 600 : 400,
-                      transition: 'color 0.2s',
+                      fontWeight: isActive ? 700 : 500,
+                      transition: 'color 0.2s ease, background-color 0.2s ease',
                     }}
                     onMouseEnter={(e) => {
-                      if (!isActive) e.currentTarget.style.color = 'var(--pestiguard-forest, #5A7863)';
+                      if (!isActive) {
+                        e.currentTarget.style.color = colors.primary;
+                        e.currentTarget.style.backgroundColor = `${colors.primary}12`;
+                      }
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.color = isActive ? 'var(--pestiguard-slate, #3B4953)' : '';
+                      e.currentTarget.style.color = isActive ? colors.primary : colors.foreground;
+                      e.currentTarget.style.backgroundColor = '';
                     }}
                   >
                     {isActive && (
@@ -125,7 +131,7 @@ export default function WikiSidebar({ isOpen, onClose, isMobile }: WikiSidebarPr
                           bottom: 0,
                           width: 4,
                           borderRadius: '0 4px 4px 0',
-                          backgroundColor: 'var(--pestiguard-forest, #5A7863)',
+                          backgroundColor: colors.primary,
                         }}
                         transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                       />

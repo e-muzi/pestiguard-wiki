@@ -1,61 +1,89 @@
 import React from 'react';
-import {ThemeProvider, createTheme, CssBaseline} from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { colors, shadows, typography } from './design-tokens';
 
 interface Props {
   children: React.ReactNode;
 }
 
-export default function Root({children}: Props): JSX.Element {
-  const getHtmlMode = (): 'light' | 'dark' => {
-    if (typeof document === 'undefined') return 'light';
-    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-  };
-
-  const [mode, setMode] = React.useState<'light' | 'dark'>(getHtmlMode);
-
-  React.useEffect(() => {
-    if (typeof document === 'undefined') return;
-    const html = document.documentElement;
-    const observer = new MutationObserver(() => {
-      setMode(getHtmlMode());
-    });
-    observer.observe(html, {attributes: true, attributeFilter: ['data-theme']});
-    return () => observer.disconnect();
-  }, []);
-
+export default function Root({ children }: Props): JSX.Element {
   const theme = React.useMemo(
     () =>
       createTheme({
         palette: {
-          mode,
+          mode: 'light',
           primary: {
-            light: '#D2DCB6',
-            main: '#A1BC98',
-            dark: '#778873',
+            main: colors.primary,
+            light: '#7d9072',
+            dark: '#4d5f44',
+            contrastText: colors.primaryForeground,
           },
           secondary: {
-            main: '#A1BC98',
+            main: colors.secondary,
+            contrastText: colors.secondaryForeground,
           },
           background: {
-            default: mode === 'dark' ? '#1a1f1a' : '#F1F3E0',
-            paper: mode === 'dark' ? '#1a1f1a' : '#F1F3E0',
+            default: colors.background,
+            paper: colors.background,
           },
           text: {
-            primary: mode === 'dark' ? '#F1F3E0' : '#778873',
-            secondary: mode === 'dark' ? '#D2DCB6' : '#778873',
+            primary: colors.foreground,
+            secondary: colors.mutedForeground,
           },
+          divider: colors.border,
         },
-        shape: { borderRadius: 10 },
+        typography: {
+          fontFamily: typography.fontFamilyBody,
+          h1: { fontFamily: typography.fontFamilyHeading, fontWeight: 700 },
+          h2: { fontFamily: typography.fontFamilyHeading, fontWeight: 700 },
+          h3: { fontFamily: typography.fontFamilyHeading, fontWeight: 700 },
+          h4: { fontFamily: typography.fontFamilyHeading, fontWeight: 700 },
+          h5: { fontFamily: typography.fontFamilyHeading, fontWeight: 700 },
+          h6: { fontFamily: typography.fontFamilyHeading, fontWeight: 700 },
+        },
+        shape: { borderRadius: 16 },
         components: {
           MuiButton: {
             styleOverrides: {
               root: {
                 textTransform: 'none',
-                borderRadius: 8,
-                padding: '6px 12px',
+                borderRadius: 9999,
+                padding: '12px 32px',
+                minHeight: 48,
                 boxShadow: 'none',
+                fontWeight: 700,
+                transition: 'all 0.3s ease',
                 '&:hover': {
-                  boxShadow: '0 1px 3px rgba(119, 136, 115, 0.2)',
+                  boxShadow: shadows.buttonHover,
+                  transform: 'scale(1.05)',
+                },
+                '&:active': {
+                  transform: 'scale(0.98)',
+                },
+              },
+              contained: {
+                boxShadow: shadows.button,
+                '&:hover': {
+                  boxShadow: shadows.buttonHover,
+                },
+              },
+              outlined: {
+                borderWidth: 2,
+                '&:hover': {
+                  borderWidth: 2,
+                },
+              },
+            },
+          },
+          MuiPaper: {
+            styleOverrides: {
+              root: {
+                backgroundImage: 'none',
+                border: `1px solid ${colors.border}80`,
+                boxShadow: shadows.soft,
+                transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+                '&:hover': {
+                  boxShadow: shadows.softHover,
                 },
               },
             },
@@ -63,14 +91,14 @@ export default function Root({children}: Props): JSX.Element {
           MuiAppBar: {
             styleOverrides: {
               root: {
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.06)',
-                borderBottom: '1px solid rgba(119, 136, 115, 0.15)',
+                boxShadow: 'none',
+                borderBottom: 'none',
               },
             },
           },
         },
       }),
-    [mode],
+    [],
   );
   return (
     <ThemeProvider theme={theme}>
@@ -79,5 +107,3 @@ export default function Root({children}: Props): JSX.Element {
     </ThemeProvider>
   );
 }
-
-

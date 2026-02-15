@@ -1,28 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@docusaurus/theme-classic/lib/theme/Layout';
 import {
   Box,
   Container,
   Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
+  Collapse,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { motion } from 'motion/react';
+import { ChevronDown, HelpCircle, Mail } from 'lucide-react';
+import PageHero from '../components/PageHero';
+import { colors, shadows, typography } from '../theme/design-tokens';
 
-const PALETTE = {
-  cream: '#F1F3E0',
-  lightSage: '#D2DCB6',
-  mutedGreen: '#A1BC98',
-  darkSage: '#778873',
-};
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: 'easeOut' as const },
-};
+const heroIconSx = {
+  width: 48,
+  height: 48,
+  borderRadius: '1rem',
+  bgcolor: `${colors.primary}18`,
+  color: colors.primary,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+} as const;
 
 const FAQ_ITEMS = [
   {
@@ -47,114 +45,182 @@ const FAQ_ITEMS = [
   },
 ];
 
-export default function Contact(): JSX.Element {
+function FaqItem({
+  question,
+  answer,
+  isOpen,
+  onToggle,
+  index,
+}: {
+  question: string;
+  answer: string;
+  isOpen: boolean;
+  onToggle: () => void;
+  index: number;
+}) {
   return (
-    <Layout title="Contact">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: index * 0.05 }}
+    >
       <Box
+        component="button"
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
         sx={{
-          minHeight: '100%',
-          bgcolor: PALETTE.cream,
-          py: { xs: 4, md: 8 },
+          width: '100%',
+          textAlign: 'left',
+          border: 'none',
+          cursor: 'pointer',
+          p: 0,
+          m: 0,
+          background: 'none',
+          font: 'inherit',
+          '&:focus-visible': {
+            outline: '2px solid',
+            outlineColor: colors.primary,
+            outlineOffset: 2,
+            borderRadius: '1.5rem',
+          },
         }}
       >
-        {/* Upper Section: Contact Branding */}
-        <Container maxWidth="md" sx={{ mb: { xs: 6, md: 8 } }}>
-          <motion.div
-            initial={fadeInUp.initial}
-            animate={fadeInUp.animate}
-            transition={fadeInUp.transition}
-          >
-            <Typography
-              variant="h2"
-              component="h1"
-              gutterBottom
-              sx={{
-                fontWeight: 700,
-                color: PALETTE.darkSage,
-                fontSize: { xs: '2rem', sm: '2.5rem', md: '2.75rem' },
-              }}
-            >
-              Contact us
-            </Typography>
-            <Typography
-              variant="h5"
-              sx={{
-                color: PALETTE.mutedGreen,
-                fontWeight: 500,
-                fontSize: { xs: '1.1rem', sm: '1.25rem', md: '1.5rem' },
-              }}
-            >
-              hello@pestiguard.com
-            </Typography>
-          </motion.div>
-        </Container>
-
-        {/* Lower Section: FAQ Accordion */}
-        <Container maxWidth="md">
-          <Typography
-            variant="h5"
-            component="h2"
-            gutterBottom
-            sx={{
-              fontWeight: 600,
-              color: PALETTE.darkSage,
-              mb: 3,
-              fontSize: { xs: '1.25rem', md: '1.5rem' },
-            }}
-          >
-            Frequently Asked Questions
-          </Typography>
-
+        <Box
+          sx={{
+            p: { xs: 2.5, sm: 3 },
+            borderRadius: '2rem',
+            border: `1px solid ${colors.border}80`,
+            bgcolor: colors.card,
+            boxShadow: shadows.soft,
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              boxShadow: shadows.softHover,
+              bgcolor: colors.background,
+              borderColor: `${colors.border}`,
+            },
+          }}
+        >
           <Box
             sx={{
-              '& .MuiAccordion-root': {
-                bgcolor: 'transparent',
-                backgroundImage: 'none',
-                boxShadow: 'none',
-                '&::before': { display: 'none' },
-                borderBottom: `1px solid ${PALETTE.lightSage}`,
-                '&:last-of-type': { borderBottom: `1px solid ${PALETTE.lightSage}` },
-              },
-              '& .MuiAccordionSummary-root': {
-                minHeight: 56,
-                '&:hover': { bgcolor: PALETTE.lightSage },
-                transition: 'background-color 0.2s ease',
-              },
-              '& .MuiAccordionSummary-content': { margin: '12px 0' },
-              '& .MuiAccordionDetails-root': { pt: 0, pb: 2, px: 3 },
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 2,
             }}
           >
+            <Typography
+              component="span"
+              sx={{
+                fontFamily: typography.fontFamilyHeading,
+                fontWeight: 600,
+                fontSize: { xs: '1rem', sm: '1.0625rem' },
+                color: colors.foreground,
+                lineHeight: 1.4,
+                flex: 1,
+              }}
+            >
+              {question}
+            </Typography>
+            <Box
+              sx={{
+                flexShrink: 0,
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                bgcolor: `${colors.primary}14`,
+                color: colors.primary,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'transform 0.3s ease, background-color 0.3s ease, color 0.3s ease',
+                transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                ...(isOpen && {
+                  bgcolor: colors.primary,
+                  color: colors.primaryForeground,
+                }),
+              }}
+            >
+              <ChevronDown size={22} strokeWidth={2} />
+            </Box>
+          </Box>
+
+          <Collapse in={isOpen}>
+            <Box sx={{ pt: 2, mt: 1, borderTop: isOpen ? `1px solid ${colors.border}60` : 'none' }}>
+              <Typography
+                sx={{
+                  fontFamily: typography.fontFamilyBody,
+                  fontSize: { xs: '0.9375rem', sm: '1rem' },
+                  color: colors.mutedForeground,
+                  lineHeight: 1.7,
+                }}
+              >
+                {answer}
+              </Typography>
+            </Box>
+          </Collapse>
+        </Box>
+      </Box>
+    </motion.div>
+  );
+}
+
+export default function Contact(): JSX.Element {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <Layout title="Contact">
+      <Box sx={{ minHeight: '100%', bgcolor: colors.background, pb: { xs: 4, md: 8 } }}>
+        <PageHero
+          title="Contact"
+          subtitle="hello@pestiguard.com"
+          icon={
+            <Box sx={heroIconSx}>
+              <Mail size={26} strokeWidth={2} />
+            </Box>
+          }
+        />
+
+        <Container maxWidth="md" sx={{ mt: 5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
+            <Box
+              sx={{
+                width: 44,
+                height: 44,
+                borderRadius: '1rem',
+                bgcolor: `${colors.primary}18`,
+                color: colors.primary,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <HelpCircle size={24} strokeWidth={2} />
+            </Box>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{
+                fontFamily: typography.fontFamilyHeading,
+                fontWeight: 600,
+                color: colors.foreground,
+                fontSize: { xs: '1.25rem', md: '1.5rem' },
+              }}
+            >
+              Frequently Asked Questions
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {FAQ_ITEMS.map((item, index) => (
-              <Accordion key={index} disableGutters>
-                <AccordionSummary
-                  expandIcon={
-                    <ExpandMoreIcon sx={{ color: PALETTE.mutedGreen }} />
-                  }
-                  aria-controls={`faq-panel-${index}`}
-                  id={`faq-header-${index}`}
-                >
-                  <Typography
-                    sx={{
-                      fontWeight: 700,
-                      color: PALETTE.darkSage,
-                      fontSize: { xs: '0.95rem', md: '1rem' },
-                    }}
-                  >
-                    {item.question}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography
-                    sx={{
-                      color: 'text.secondary',
-                      fontSize: { xs: '0.9rem', md: '1rem' },
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {item.answer}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
+              <FaqItem
+                key={index}
+                question={item.question}
+                answer={item.answer}
+                isOpen={openIndex === index}
+                onToggle={() => setOpenIndex((prev) => (prev === index ? null : index))}
+                index={index}
+              />
             ))}
           </Box>
         </Container>

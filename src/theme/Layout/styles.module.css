@@ -11,6 +11,8 @@ body {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
+  /* Clear the floating pill navbar */
+  padding-top: 88px;
 }
 
 .layoutWithSidebar {
@@ -32,25 +34,27 @@ body {
 .menuButton {
   display: none;
   position: fixed;
-  top: calc(var(--ifm-navbar-height, 60px) + 12px);
-  left: 12px;
+  top: calc(var(--ifm-navbar-height, 72px) + 16px);
+  left: 16px;
   z-index: 1060;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(90, 120, 99, 0.3);
-  background: var(--pestiguard-cream, #EBF4DD);
-  color: var(--pestiguard-slate, #3B4953);
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 1px solid rgba(222, 216, 207, 0.8);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  color: var(--pg-primary, #5D7052);
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 12px rgba(59, 73, 83, 0.12);
-  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 4px 20px -2px rgba(93, 112, 82, 0.15);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 .menuButton:hover {
-  background: var(--pestiguard-sage, #90AB8B);
-  color: white;
+  background: var(--pg-primary, #5D7052);
+  color: var(--pg-primary-foreground, #F3F4F1);
+  box-shadow: 0 6px 24px -4px rgba(93, 112, 82, 0.25);
 }
 
 @media (max-width: 996px) {

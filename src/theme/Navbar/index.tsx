@@ -1,10 +1,10 @@
 /**
- * Custom MUI-based Navbar: brand left, navigation links right.
+ * Organic design: sticky floating pill nav with glassmorphism and Lucide logo.
  */
 
 import React from 'react';
 import clsx from 'clsx';
-import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { useThemeConfig, type NavbarItem } from '@docusaurus/theme-common';
@@ -13,15 +13,10 @@ import {
   useNavbarMobileSidebar,
 } from '@docusaurus/theme-common/internal';
 import { translate } from '@docusaurus/Translate';
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
 import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
 import IconMenu from '@theme/Icon/Menu';
-
-const NAVBAR_COLORS = {
-  background: '#D2DCB6',
-  hover: '#778873',
-  brand: '#778873',
-};
+import { Leaf } from 'lucide-react';
+import { colors, shadows } from '../design-tokens';
 
 function NavbarBackdrop({
   className,
@@ -39,7 +34,7 @@ function NavbarBackdrop({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0,0,0,0.25)',
+        backgroundColor: 'rgba(44, 44, 36, 0.2)',
         zIndex: 1040,
       }}
     />
@@ -73,33 +68,43 @@ export default function Navbar(): JSX.Element {
         description: 'The ARIA label for the main navigation',
       })}
     >
-      <AppBar
-        ref={navbarRef}
-        position="fixed"
-        elevation={0}
+      <Box
         sx={{
-          backgroundColor: NAVBAR_COLORS.background,
-          backdropFilter: 'saturate(180%) blur(12px)',
-          borderBottom: '1px solid rgba(119, 136, 115, 0.15)',
-          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.06)',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1100,
+          pt: 2,
+          px: { xs: 2, sm: 3 },
           transform:
-          hideOnScroll && !isNavbarVisible
-            ? 'translate3d(0, -100%, 0)'
-            : 'none',
-          transition: 'transform 0.25s ease',
+            hideOnScroll && !isNavbarVisible
+              ? 'translate3d(0, -100%, 0)'
+              : 'none',
+          transition: 'transform 0.3s ease',
         }}
       >
-        <Toolbar
-          variant="dense"
+        <Box
+          ref={navbarRef}
           sx={{
+            maxWidth: 960,
+            margin: '0 auto',
+            borderRadius: 9999,
+            backgroundColor: 'rgba(255, 255, 255, 0.72)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: `1px solid ${colors.border}80`,
+            boxShadow: shadows.soft,
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
-            minHeight: { xs: 60, sm: 72 },
-            px: { xs: 2, sm: 2.5 },
-            py: 0,
+            minHeight: 56,
+            px: { xs: 1.5, sm: 2 },
+            py: 0.5,
           }}
         >
-          {/* Left: mobile toggle (only on small screens) + brand */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {/* Left: mobile toggle + logo + brand */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             {!mobileSidebar.disabled && (
               <Button
                 onClick={mobileSidebar.toggle}
@@ -111,28 +116,48 @@ export default function Navbar(): JSX.Element {
                 aria-expanded={mobileSidebar.shown}
                 sx={{
                   display: { xs: 'inline-flex', md: 'none' },
-                  minWidth: 40,
-                  color: NAVBAR_COLORS.brand,
+                  minWidth: 44,
+                  minHeight: 44,
+                  color: colors.primary,
+                  borderRadius: 9999,
                   '&:hover': {
-                    backgroundColor: 'rgba(119, 136, 115, 0.12)',
-                    color: NAVBAR_COLORS.hover,
+                    backgroundColor: `${colors.primary}18`,
+                    color: colors.primary,
                   },
                 }}
               >
                 <IconMenu />
               </Button>
             )}
-            <Link to={useBaseUrl('/')} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to={useBaseUrl('/')} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Box
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: '50%',
+                  backgroundColor: colors.primary,
+                  color: colors.primaryForeground,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <Leaf size={22} strokeWidth={2} />
+              </Box>
               <Typography
-                variant="h5"
+                variant="h6"
                 component="span"
                 sx={{
+                  fontFamily: '"Fraunces", Georgia, serif',
                   fontWeight: 700,
-                  color: NAVBAR_COLORS.brand,
+                  color: colors.foreground,
                   letterSpacing: '-0.02em',
+                  fontSize: '1.125rem',
                   '&:hover': {
-                    color: NAVBAR_COLORS.hover,
+                    color: colors.primary,
                   },
+                  transition: 'color 0.2s ease',
                 }}
               >
                 {title ?? 'PestiGuard'}
@@ -141,13 +166,7 @@ export default function Navbar(): JSX.Element {
           </Box>
 
           {/* Right: nav links + color mode toggle */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 0.25,
-            }}
-          >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25 }}>
             {linkItems.map((item, i) => (
               <Button
                 key={i}
@@ -155,26 +174,25 @@ export default function Navbar(): JSX.Element {
                 to={useBaseUrl(item.to)}
                 sx={{
                   display: { xs: 'none', md: 'inline-flex' },
-                  color: NAVBAR_COLORS.brand,
-                  px: 1.25,
-                  py: 0.75,
-                  borderRadius: 1,
-                  fontSize: '0.9rem',
+                  color: colors.foreground,
+                  px: 2,
+                  py: 1,
+                  borderRadius: 9999,
+                  fontSize: '0.9375rem',
+                  fontWeight: 600,
                   '&:hover': {
-                    backgroundColor: 'rgba(119, 136, 115, 0.12)',
-                    color: NAVBAR_COLORS.hover,
+                    backgroundColor: `${colors.primary}14`,
+                    color: colors.primary,
                   },
+                  transition: 'all 0.2s ease',
                 }}
               >
                 {item.label}
               </Button>
             ))}
-            <Box sx={{ ml: 0.5 }}>
-              <NavbarColorModeToggle />
-            </Box>
           </Box>
-        </Toolbar>
-      </AppBar>
+        </Box>
+      </Box>
 
       <NavbarBackdrop
         className="navbar-sidebar__backdrop"

@@ -29,7 +29,8 @@ const config: Config = {
   themeConfig: {
     colorMode: {
       defaultMode: 'light',
-      respectPrefersColorScheme: true,
+      respectPrefersColorScheme: false,
+      disableSwitch: true,
     },
     navbar: {
       title: 'PestiGuard',
