@@ -67,7 +67,7 @@ export default function ProjectDescription(): JSX.Element {
                 <Typography variant="body1" paragraph sx={{ color: colors.mutedForeground, lineHeight: 1.7 }}>
                   The widespread use of pesticides in modern agriculture has led to
                   unprecedented environmental and health concerns. Chemical residues
-                  from agents like <strong>Glyphosate</strong> and <strong>Acephate</strong>
+                  from agents like <strong>Glyphosate</strong> and <strong>Acephate </strong>
                   persist in our food chain, linked to chronic conditions such as
                   respiratory issues and neurodegenerative diseases.
                 </Typography>
@@ -92,7 +92,7 @@ export default function ProjectDescription(): JSX.Element {
                 </Box>
                 <Typography variant="body1" paragraph sx={{ color: colors.mutedForeground, lineHeight: 1.7 }}>
                   PestiGuard aims to democratize food safety. By utilizing synthetic
-                  biology, we have developed a <strong>cell-free biosensor</strong>
+                  biology, we have implemented a <strong>cell-free biosensor </strong>
                   that detects specific pesticide molecules through RNA aptamer binding.
                   Our system provides a visual fluorescence-based result that is
                   quantified via a smartphone app, ensuring that anyone, anywhere,
@@ -116,7 +116,7 @@ export default function ProjectDescription(): JSX.Element {
 
                 <List disablePadding>
                   {[
-                    { title: 'Sample Preparation', text: 'Wash produce with a specialized buffer to extract surface pesticide residues.' },
+                    { title: 'Sample Preparation', text: 'Immerse the soil/food sample into water to extract surface pesticide residues.' },
                     { title: 'Biosensor Reaction', text: 'Add the extract to our SmartBox containing the genetic circuit; binding triggers a change in GFP expression.' },
                     { title: 'Software Analysis', text: 'Capture an image with the BioAP app to receive an instant toxicity report based on fluorescence intensity.' },
                   ].map((item, index) => (

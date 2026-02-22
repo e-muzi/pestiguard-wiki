@@ -19,7 +19,6 @@ import {
   Filter,
   Settings,
   Wrench,
-  WifiOff,
   ShoppingCart,
 } from 'lucide-react';
 import PageHero from '../components/PageHero';
@@ -106,15 +105,16 @@ export default function HardwarePage(): JSX.Element {
                 </Typography>
               </Box>
               <Typography variant="body1" paragraph sx={{ color: colors.mutedForeground, lineHeight: 1.7 }}>
-                The SmartBox is a compact, fully 3D-printed enclosure consisting of three
-                major components: a black box with an orange filter, a blue light source,
-                and a dedicated cover for placing samples.
+                The SmartBox is a compact, fully 3D-printed enclosure optimized specifically
+                for <strong>1.5 mL Eppendorf tubes</strong>, ensuring a fixed focal distance
+                and high data consistency across every measurement. It consists of a black
+                box with an interchangeable filter, a blue light strip, and a dedicated
+                sample holder.
               </Typography>
               <Typography variant="body1" paragraph sx={{ color: colors.mutedForeground, lineHeight: 1.7 }}>
-                To ensure accuracy, the box is constructed with <strong>black-walled
-                interiors</strong> that minimize internal light reflection.
-                The design eliminates extra openings to prevent external light leakage,
-                ensuring the validity of every reading.
+                The enclosure acts as a <strong>darkroom</strong>: external light is
+                eliminated and <strong>black-walled interiors</strong> minimize reflection,
+                so readings remain valid and repeatable.
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -161,7 +161,7 @@ export default function HardwarePage(): JSX.Element {
                     <Box
                       component="img"
                       src="/assets/hardware.PNG"
-                      alt="3D CAD draft of the assembled SmartBox"
+                      alt="SmartBox Design Draft"
                       sx={{
                         maxHeight: 280,
                         width: 'auto',
@@ -180,7 +180,7 @@ export default function HardwarePage(): JSX.Element {
                         letterSpacing: '0.04em',
                       }}
                     >
-                      3D CAD draft · SmartBox assembly
+                      SmartBox Design Draft
                     </Typography>
                   </Box>
                 </Paper>
@@ -226,10 +226,10 @@ export default function HardwarePage(): JSX.Element {
                   Blue Light Source
                 </Typography>
                 <Typography variant="body2" sx={{ color: colors.mutedForeground, lineHeight: 1.6 }}>
-                  A blue LED light strip provides even illumination across the
-                  samples. This precise light source is essential
-                  for exciting the Green Fluorescent Protein (GFP) produced by
-                  the biosensor.
+                  A <strong>blue light strip at the bottom</strong> of the unit provides
+                  even illumination. It is chosen to align with the GFP excitation peak,
+                  making it essential for exciting the Green Fluorescent Protein produced
+                  by the biosensor.
                 </Typography>
               </Paper>
               <Paper
@@ -252,10 +252,10 @@ export default function HardwarePage(): JSX.Element {
                   Orange Filter
                 </Typography>
                 <Typography variant="body2" sx={{ color: colors.mutedForeground, lineHeight: 1.6 }}>
-                  The box includes an integrated orange filter that isolates
-                  the emission signal. It blocks the blue
-                  excitation light, allowing the smartphone camera to capture
-                  only the green light intensity emitted by the biosensor.
+                  The <strong>orange filter is swappable/interchangeable</strong>, so you
+                  can support other reporters (e.g. <strong>RFP</strong>) or switch to
+                  normal light imaging. For GFP, it blocks blue excitation and isolates
+                  the emission signal for the camera.
                 </Typography>
               </Paper>
               <Paper
@@ -275,25 +275,24 @@ export default function HardwarePage(): JSX.Element {
                   <Settings size={24} strokeWidth={2} />
                 </Box>
                 <Typography variant="h6" gutterBottom sx={{ fontFamily: typography.fontFamilyHeading, fontWeight: 700, color: colors.foreground }}>
-                  Versatile Adaptors
+                  Cost-Effective & High Compatibility
                 </Typography>
                 <Typography variant="body2" sx={{ color: colors.mutedForeground, lineHeight: 1.6 }}>
-                  The SmartBox is designed to be versatile. It includes custom
-                  adaptors to accommodate both 1.5 mL Eppendorf tubes and
-                  larger 15 mL conical tubes, making it suitable for both
-                  home testing and lab-scale needs.
+                  Fully 3D-printed with standard filaments for low production costs.
+                  Swappable filters support GFP, RFP, or normal light imaging.
                 </Typography>
               </Paper>
             </Box>
           </Box>
 
-          {/* 3. Portability and Workflow */}
+          {/* 3. Workflow & Advantages */}
           <Box
             sx={{
               display: 'grid',
               gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
               gap: 6,
               alignItems: 'center',
+              mb: 8,
             }}
           >
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -318,7 +317,7 @@ export default function HardwarePage(): JSX.Element {
                     className="hardware-advantage-img"
                     component="img"
                     src="/assets/hardware_flow.JPG"
-                    alt="SmartBox foldable, field-ready design for on-site testing"
+                    alt="Light strip integration in SmartBox"
                     sx={{
                       display: 'block',
                       maxHeight: 300,
@@ -329,37 +328,30 @@ export default function HardwarePage(): JSX.Element {
                     }}
                   />
                 </Box>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    display: 'block',
+                    mt: 1.5,
+                    color: colors.mutedForeground,
+                    fontWeight: 500,
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  Light strip integration
+                </Typography>
               </motion.div>
             </Box>
             <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
-                <Box sx={iconWrapSx}>
-                  <WifiOff size={28} strokeWidth={2} />
-                </Box>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontFamily: typography.fontFamilyHeading,
-                    fontWeight: 700,
-                    color: colors.foreground,
-                  }}
-                >
-                  Field-Ready Design
-                </Typography>
-              </Box>
-              <Typography variant="body1" paragraph sx={{ color: colors.mutedForeground, lineHeight: 1.7 }}>
-                The SmartBox is designed for maximum portability with a <strong>foldable
-                structure</strong>. This allows users to easily transport the
-                kit for on-site testing in grocery stores, farms, or community gardens.
-              </Typography>
               <Typography variant="h6" gutterBottom sx={{ fontFamily: typography.fontFamilyHeading, fontWeight: 600, color: colors.foreground }}>
-                Hardware Workflow:
+                Hardware Workflow
               </Typography>
               <List disablePadding>
                 {[
-                  'Insert the induced biosensor tube into the appropriate adaptor.',
-                  'Close the lid to seal out ambient light.',
-                  'Activate the blue LED and capture the result through the orange filter using the BioAP software.',
+                  'Sample Prep: Load induced biosensor into 1.5 mL tubes and place in the sample holder.',
+                  'Illumination: Activate the blue light strip at the bottom of the unit.',
+                  'Photography: Capture the result with a camera or smartphone through the orange filter.',
+                  'Analysis: Process images and quantify fluorescence using BioAP software.',
                 ].map((step, index) => (
                   <ListItem key={index} sx={{ px: 0, alignItems: 'flex-start' }}>
                     <ListItemIcon sx={{ minWidth: 40, mt: 0.25 }}>

@@ -39,23 +39,23 @@ const steps = [
   {
     label: 'Sample Preparation',
     icon: <Soup size={22} strokeWidth={2} />,
-    description: `Wipe the surface of your produce (vegetables or fruit) or take a small soil sample. Place the sample into the provided extraction buffer tube and shake for 30 seconds to release pesticide residues.`,
+    description: `Take your produce (vegetables or fruit) or take a small soil sample. Immerse the sample into water to release pesticide residues.`,
     image: '/assets/p1.jpg',
-    imageAlt: 'Sample preparation: produce or soil with extraction buffer tube',
+    imageAlt: 'Sample preparation: produce or soil with water tube',
   },
   {
     label: 'Biosensor Activation',
     icon: <FlaskConical size={22} strokeWidth={2} />,
-    description: `Transfer 100μL of your sample extract into the PestiGuard reaction tube (containing our engineered biosensor). If using the Cell-Free kit, the reaction will begin immediately. If using the bacterial kit, allow for the designated incubation period.`,
+    description: `Transfer 100μL of your sample extract into an Eppendorf tube. If using the Cell-Free kit, the reaction will begin immediately. If using the bacterial kit, allow for the designated incubation period.`,
     image: '/assets/p2.jpg',
-    imageAlt: 'Biosensor activation: transferring sample into reaction tube',
+    imageAlt: 'Biosensor activation: transferring sample into SmartBox',
   },
   {
     label: 'SmartBox Setup',
     icon: <BoxIcon size={22} strokeWidth={2} />,
     description: `Place the reaction tube into the SmartBox adaptor. Ensure the lid is securely closed to block all ambient light. Switch on the internal blue LED excitation light.`,
     image: '/assets/smartbox.JPG',
-    imageAlt: 'SmartBox setup: reaction tube in adaptor with lid closed',
+    imageAlt: 'SmartBox setup: SmartBox with lid closed',
   },
   {
     label: 'Software Analysis',

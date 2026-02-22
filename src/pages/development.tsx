@@ -144,7 +144,7 @@ export default function SciencePage(): JSX.Element {
                 <source src="/assets/glyphosate.mov" type="video/quicktime" />
               </Box>
               <Typography variant="caption" sx={{ display: 'block', mt: 1.5, color: colors.mutedForeground, textAlign: 'center', fontFamily: typography.fontFamilyBody }}>
-                Glyphosate concentration vs. fluorescence (inverse signal)
+                Glyphosate-Aptamer binding stimulation
               </Typography>
             </Box>
           </Box>
@@ -165,8 +165,8 @@ export default function SciencePage(): JSX.Element {
               </Box>
               <Typography variant="body1" paragraph sx={{ color: colors.mutedForeground, lineHeight: 1.7 }}>
                 Our wet lab work focused on constructing a robust genetic circuit within
-                <i> E. coli</i> BL21. We engineered a system where the <strong>T7 promoter</strong>
-                drives the expression of fluorescent reporters (EGFP/RFP).
+                <i> E. coli</i> BL21. We engineered a system where the <strong>PlacUV5-MB7 promoter </strong>
+                drives the expression of EGFP fluorescent reporters.
               </Typography>
               <Typography variant="h6" gutterBottom sx={{ fontFamily: typography.fontFamilyHeading, fontWeight: 600, color: colors.primary }}>
                 The Inverse Signaling Mechanism
