@@ -24,25 +24,55 @@ const heroIconSx = {
 
 const FAQ_ITEMS = [
   {
+    question: 'What is PestiGuard?',
+    answer:
+      'PestiGuard is an innovative biosensor designed to empower consumers to detect pesticide residues directly in their food. It uses a genetic circuit that provides a quantifiable visual output to indicate the presence of harmful chemicals.',
+  },
+  {
+    question: 'How does the biosensor actually work?',
+    answer:
+      'The sensor uses an RNA aptamer that binds to specific pesticides. When binding occurs, it triggers a structural change that blocks the ribosome from producing a fluorescent protein. This means a dimmer signal indicates a higher concentration of pesticides.',
+  },
+  {
+    question: 'Which pesticides can PestiGuard detect?',
+    answer:
+      'Our current platform has been conclusively validated to detect Glyphosate and Acephate with high specificity and reliability. We are continuing to optimize the system for other pesticides like Malathion and Chlorpyrifos.',
+  },
+  {
+    question: 'Is the device portable?',
+    answer:
+      'Yes! We designed the "SmartBox", a compact, 3D-printed enclosure that provides a standardized environment for testing. It is lightweight, cost-effective, and easy to carry for on-site analysis.',
+  },
+  {
+    question: 'How do I read the results?',
+    answer:
+      'Results are analyzed through our custom software, the PestiGuard Biosensor Analysis Platform (BioAP). You simply take a photo of the test sample with your smartphone, and the app calculates the precise pesticide concentration by comparing it to a calibrated reference.',
+  },
+  {
+    question: 'How long does a test take?',
+    answer:
+      'Currently, the cell-free biosensor requires 6-8 hours waiting time to produce a reliable signal.',
+  },
+  {
+    question: 'Can I use it on different types of vegetables?',
+    answer:
+      'Yes, we have successfully validated PestiGuard on several common vegetables, including Green Chinese Cabbage, Chinese Lettuce, and Chinese Flowering Cabbage. The biosensor maintains accuracy even within these complex food matrices.',
+  },
+  {
+    question: 'Is PestiGuard safe to use?',
+    answer:
+      'While our current prototype uses a safe, non-pathogenic strain of E. coli (BL21), we are transitioning toward a cell-free protein synthesis (CFPS) system. This will remove the need for live genetically modified organisms (GMOs) in the final consumer product.',
+  },
+  {
+    question: 'Any patent?',
+    answer:
+      'Since we are a secondary school joint school team, we are still seeking investment for our project. We currently do not have the funding for a patent, but we are looking for partners to help us protect and scale this technology.',
+  },
+  {
     question: 'How do I get in touch with the PestiGuard team?',
     answer:
-      'You can reach us at hello@pestiguard.com for general inquiries, partnerships, media, or technical support. We typically respond within 1–2 business days.',
-  },
-  {
-    question: 'Where can I find documentation and science details?',
-    answer:
-      'This wiki is the central hub for PestiGuard. Use the sidebar or navbar to explore Project, Development, Hardware, Software, and Usage pages for full documentation and science.',
-  },
-  {
-    question: 'Is PestiGuard available for purchase or pilot programs?',
-    answer:
-      'For licensing, pilot programs, or collaboration opportunities, please email hello@pestiguard.com with a short description of your interest. We welcome partnerships with researchers, educators, and food-safety organizations.',
-  },
-  {
-    question: 'How can I contribute or join the community?',
-    answer:
-      'PestiGuard is part of the iGEM and synthetic biology community. Check our main project page and iGEM wiki for community channels, outreach events, and contribution guidelines.',
-  },
+      'You can reach us at e.lokyeeli@gmail.com or clxwpj99@gmail.com for general inquiries, partnerships, media, or technical support. We typically respond within 1–2 business days.',
+  }
 ];
 
 function FaqItem({
@@ -169,18 +199,17 @@ export default function Contact(): JSX.Element {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <Layout title="Contact">
-      <Box sx={{ minHeight: '100%', bgcolor: colors.background, pb: { xs: 4, md: 8 } }}>
+    <Layout title="Contact | PestiGuard Wiki">
+      <Box sx={{ py: 2, pb: 8 }}>
         <PageHero
           title="Contact"
-          subtitle="s2021060@cpu.edu.hk"
+          subtitle="Erica Li: e.lokyeeli@gmail.com | Kelly Wu: clxwpj99@gmail.com"
           icon={
             <Box sx={heroIconSx}>
               <Mail size={26} strokeWidth={2} />
             </Box>
           }
         />
-
         <Container maxWidth="md" sx={{ mt: 5 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
             <Box
