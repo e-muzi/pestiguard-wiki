@@ -66,7 +66,12 @@ const FAQ_ITEMS = [
   {
     question: 'Any patent?',
     answer:
-      'Since we are a secondary school joint school team, we are still seeking investment for our project. We currently do not have the funding for a patent, but we are looking for partners to help us protect and scale this technology.',
+      'Since we are a high school joint school team, we are still seeking investment for our project. We currently do not have the funding for a patent, but we are looking for partners to help us protect and scale this technology.',
+  },
+  {
+    question: 'Who are our target customers?',
+    answer:
+      'Our target customers are small farmers and government agencies, while also households who want to ensure the safety of their food.',
   },
   {
     question: 'How do I get in touch with the PestiGuard team?',
